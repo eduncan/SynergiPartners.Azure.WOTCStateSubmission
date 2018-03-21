@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>    
+    <PackageReference Include="ChakraCore.NET" Version="1.2.8" />    
+    <PackageReference Include="Microsoft.Azure.KeyVault" Version="2.4.0-preview" />    
+    <PackageReference Include="Microsoft.Azure.KeyVault.Extensions" Version="2.4.0-preview" />    
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DocumentDB" Version="1.1.0" />    
+    <PackageReference Include="Microsoft.ChakraCore" Version="1.8.2" />    
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.2" />    
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.9" />    
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />    
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />    
+    <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SynergiPartners.WOTCStateSubmission.Core\SynergiPartners.WOTCStateSubmission.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
