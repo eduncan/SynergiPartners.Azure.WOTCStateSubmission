@@ -18,6 +18,8 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
         [FunctionName("PrepareScreeningsForState")]
         public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1.0/state/{stateAbbreviation}/submit")]HttpRequestMessage req, string stateAbbreviation, TraceWriter log)
         {
+            //TODO: handle error responses
+            //TODO: integrate with something for JWT bearer tokens
             MongoClient client = new MongoClient(System.Environment.GetEnvironmentVariable("ScreeningCosmosDb", EnvironmentVariableTarget.Process));
             IMongoDatabase database = client.GetDatabase("Screening");
             IMongoCollection<PrepareScreeningsForStatePost> collection = database.GetCollection<PrepareScreeningsForStatePost>("Screening");
@@ -36,8 +38,6 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
                 log.Info("Screenings deserialized");
 
                 collection.InsertOne(prepareScreeningsPost);
-
-                
 
                 var filter = string.Format("{{ State: '{0}',Type: 'StateSubmissionConfiguration'}}", stateAbbreviation);
 
@@ -64,10 +64,10 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
                     }, (f) => { });
                 }
 
-                return req.CreateResponse(HttpStatusCode.OK, "Hello " + stateAbbreviation);
+                return req.CreateResponse(HttpStatusCode.OK);
             }
 
-            return req.CreateResponse(HttpStatusCode.OK, "Hello " + stateAbbreviation);
+            return req.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

@@ -19,12 +19,8 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
         [FunctionName("PrepareScreenings")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1.0/state/submit")]HttpRequestMessage req, TraceWriter log)
         {
-            //MongoClient client = new MongoClient(System.Environment.GetEnvironmentVariable("ScreeningCosmosDb", EnvironmentVariableTarget.Process));
-            //IMongoDatabase database = client.GetDatabase("Screening");
-            //IMongoCollection<PrepareScreeningsPost> collection = database.GetCollection<PrepareScreeningsPost>("Screening");
-            //IMongoCollection<StateSubmissionConfiguration> configurationCollection =
-            //    database.GetCollection<StateSubmissionConfiguration>("Screening");
-
+            //TODO: handle error responses
+            //TODO: integrate with something for JWT bearer tokens
             log.Info("PrepareScreeningsForState function started");
 
             var content = req.Content.ReadAsStringAsync().Result;
@@ -35,8 +31,6 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
             if (prepareScreeningsPost != null)
             {
                 log.Info("Screenings deserialized");
-
-                //collection.InsertOne(prepareScreeningsPost);
 
                 var screenings = new Dictionary<string, PrepareScreeningsForStatePost>();
 
@@ -68,10 +62,10 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
                     }
                 }
 
-                return req.CreateResponse(HttpStatusCode.OK, "Hello");
+                return req.CreateResponse(HttpStatusCode.OK);
             }
 
-            return req.CreateResponse(HttpStatusCode.OK, "Hello");
+            return req.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

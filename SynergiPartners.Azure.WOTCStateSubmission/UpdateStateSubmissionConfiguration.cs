@@ -22,6 +22,8 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
             HttpRequestMessage req, string stateAbbreviation,
             TraceWriter log)
         {
+            //TODO: handle error responses
+            //TODO: integrate with something for JWT bearer tokens
             MongoClient client = new MongoClient(System.Environment.GetEnvironmentVariable("ScreeningCosmosDb", EnvironmentVariableTarget.Process));
             IMongoDatabase database = client.GetDatabase("Screening");
             IMongoCollection<StateSubmissionConfiguration> collection = database.GetCollection<StateSubmissionConfiguration>("Screening");
@@ -53,7 +55,7 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
                     var replaceOneResult = collection.ReplaceOne(filter, stateSubmissionConfiguration);
                 }
 
-                return req.CreateResponse(HttpStatusCode.OK, "Hello " + stateAbbreviation);
+                return req.CreateResponse(HttpStatusCode.OK);
             }
 
             else

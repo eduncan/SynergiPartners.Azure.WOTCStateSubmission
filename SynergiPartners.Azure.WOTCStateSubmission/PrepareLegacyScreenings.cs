@@ -19,6 +19,8 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
         [FunctionName("PrepareLegacyScreenings")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1.0/state/submitlegacy")]HttpRequestMessage req, TraceWriter log)
         {
+            //TODO: handle error responses
+            //TODO: integrate with something for JWT bearer tokens
             var content = req.Content.ReadAsStringAsync().Result;
             var prepareScreeningsPost =
                 JsonConvert.DeserializeObject<PrepareScreeningsPost>(content);
@@ -71,7 +73,7 @@ namespace SynergiPartners.Azure.WOTCStateSubmission
                         EnvironmentVariableTarget.Process), new StringContent(json,null,"application/json"));
             }
 
-            return req.CreateResponse(HttpStatusCode.OK, "Hello");
+            return req.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
